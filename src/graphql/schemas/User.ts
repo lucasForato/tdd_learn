@@ -1,13 +1,14 @@
-const { gql } = require('apollo-server');
-
+import { gql } from "apollo-server";
 
 export default gql`
-  type Book {
-    title: String
-    author: String
+  type User {
+    name: String
+    email: String!
+    password: String!
   }
 
   type Query {
-    books: [Book]
+    users: [User]!
+    user(id: ID!): User
   }
 `;

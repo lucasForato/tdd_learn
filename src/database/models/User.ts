@@ -1,18 +1,11 @@
-import { Sequelize, Model, DataTypes } from "sequelize";
+import { makeConnection } from './../config/sequelizeConfig';
+import { UserSequelize } from "./../../types/index";
+import { DataTypes } from "sequelize";
 
-const sequelize = new Sequelize("tdd_learn", "postgres", '3140', {
-  host: "localhost",
-  dialect: "postgres",
-});
+const sequelize = makeConnection();
 
-class User extends Model {
-  public readonly id!: number;
-  public readonly name!: string;
-  public readonly email: string;
-  public readonly password: string;
-}
-
-User.init(
+export const User = sequelize.define<UserSequelize>(
+  "users",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -32,8 +25,7 @@ User.init(
       allowNull: false,
     },
   },
-  { 
+  {
     tableName: "users",
-    sequelize
   }
 );

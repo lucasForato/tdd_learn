@@ -1,13 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.User = void 0;
+const sequelizeConfig_1 = require("./../config/sequelizeConfig");
 const sequelize_1 = require("sequelize");
-const sequelize = new sequelize_1.Sequelize("tdd_learn", "postgres", '3140', {
-    host: "localhost",
-    dialect: "postgres",
-});
-class User extends sequelize_1.Model {
-}
-User.init({
+const sequelize = (0, sequelizeConfig_1.makeConnection)();
+exports.User = sequelize.define("users", {
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         autoIncrement: true,
@@ -27,6 +24,5 @@ User.init({
     },
 }, {
     tableName: "users",
-    sequelize
 });
 //# sourceMappingURL=User.js.map
