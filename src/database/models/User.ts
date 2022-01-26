@@ -1,15 +1,32 @@
-import { makeConnection } from './../config/sequelizeConfig';
-import { UserSequelize } from "./../../types/index";
-import { DataTypes } from "sequelize";
+import { makeConnection } from "../config/sequelizeConfig";
+import { DataTypes, Model, Optional } from "sequelize";
 
-const sequelize = makeConnection();
+const sequelize = makeConnection()
 
-export const User = sequelize.define<UserSequelize>(
-  "users",
+export interface UserAttributes {
+  id?: number;
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface UserCreationAttributes
+  extends Optional<UserAttributes, "id"> {}
+
+export interface UserInstance
+  extends Model<UserAttributes, UserCreationAttributes>,
+    UserAttributes {
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export const User = sequelize.define<UserInstance>(
+  "User",
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
+      allowNull: false,
       primaryKey: true,
     },
     name: {
@@ -27,5 +44,6 @@ export const User = sequelize.define<UserSequelize>(
   },
   {
     tableName: "users",
+    paranoid: true,
   }
 );
