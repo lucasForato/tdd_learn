@@ -1,25 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const UserControllers_1 = require("./../../controllers/UserControllers");
-const mock = [
-    {
-        id: 0,
-        name: "Lucas Forato",
-        email: "lucas7forato@gmail.com",
-        password: "12345",
-    },
-];
 const userController = new UserControllers_1.UserController();
 exports.default = {
     Query: {
-        users: () => mock,
+        users: () => {
+            return userController.getUsers();
+        },
         user: (_, { id }, __, ___) => {
-            return mock[id];
+            return userController.getUser(id);
         },
     },
     Mutation: {
-        addUser: (_, { name, email, password, }, __, ___) => {
-            userController.addUser({ name, email, password });
+        addUser: async (_, { name, email, password, }, __, ___) => {
+            const newUser = await userController.addUser({ name, email, password });
+            return newUser;
+        },
+        deleteUser: async (_, { id }, __, ___) => {
+            const deletedUser = await userController.deleteUser(id);
+            return deletedUser;
         },
     },
 };

@@ -4,7 +4,7 @@ import { DataTypes, Model, Optional } from "sequelize";
 const sequelize = makeConnection()
 
 export interface UserAttributes {
-  id?: number;
+  id: number;
   name: string;
   email: string;
   password: string;
@@ -44,6 +44,6 @@ export const User = sequelize.define<UserInstance>(
   },
   {
     tableName: "users",
-    paranoid: true,
+    //paranoid: true,
   }
 );

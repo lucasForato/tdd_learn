@@ -1,21 +1,16 @@
 import { UserController } from "./../../controllers/UserControllers";
 
-const mock = [
-  {
-    id: 0,
-    name: "Lucas Forato",
-    email: "lucas7forato@gmail.com",
-    password: "12345",
-  },
-];
-
 const userController = new UserController();
 
 export default {
   Query: {
-    users: () => mock,
+    //TODO: return all users, not mock
+    users: () => {
+      return userController.getUsers();
+    },
+    //TODO: return a real user, not a mock
     user: (_: unknown, { id }: { id: number }, __: unknown, ___: unknown) => {
-      return mock[id];
+      return userController.getUser(id);
     },
   },
   Mutation: {
@@ -32,6 +27,17 @@ export default {
       const newUser = await userController.addUser({ name, email, password });
 
       return newUser;
+    },
+
+    deleteUser: async (
+      _: unknown,
+      { id }: { id: number },
+      __: unknown,
+      ___: unknown
+    ) => {
+      const deletedUser = await userController.deleteUser(id);
+
+      return deletedUser;
     },
   },
 };
