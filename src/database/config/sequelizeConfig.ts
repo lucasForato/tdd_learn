@@ -9,6 +9,7 @@ export const makeConnection = () => {
     {
       host: process.env.DEV_DATABASE_HOST,
       dialect: "postgres",
+      logging: false
     }
   );
 };

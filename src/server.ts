@@ -4,7 +4,7 @@ import resolvers from "./graphql/resolvers";
 import express from "express";
 import { verify } from "jsonwebtoken";
 
-async function startApolloServer() {
+export async function startApolloServer() {
   const app = express();
   const server = new ApolloServer({
     typeDefs,
@@ -33,7 +33,7 @@ async function startApolloServer() {
       `🚀 Server ready at http://localhost:4000${server.graphqlPath}`
     );
   });
-  return { server, app };
+  return server;
 }
 
 startApolloServer();

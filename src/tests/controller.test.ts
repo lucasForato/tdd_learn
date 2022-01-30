@@ -1,6 +1,12 @@
-import { createApolloServer } from "../server";
+const { ApolloServer } = require("apollo-server-express");
+import typeDefs from "../graphql/schemas";
+import resolvers from "../graphql/resolvers";
 
-const server = createApolloServer();
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req, res }: any) => ({ req, res }),
+});
 
 test("Create a new User", async () => {
   const CREATE_USER = `
@@ -54,6 +60,32 @@ test("return a single user based on email", async () => {
   });
 });
 
+test("Login as a user", async () => {
+  //select user based on email
+  const LOGIN = `
+  mutation LoginUser($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
+      code
+      success
+      message
+    }
+  }
+  `;
+  const response = await server.executeOperation({
+    query: LOGIN,
+    variables: {
+      email: "donald.duck@gmail.com",
+      password: "12345678",
+    },
+  });
+
+  expect(response?.data?.loginUser).toMatchObject({
+    code: 200,
+    success: true,
+    message: "You successfully signed in!"
+  });
+});
+
 test("Delete a user", async () => {
   //select user based on email
   const DELETE_USER = `
@@ -86,3 +118,5 @@ test("Delete a user", async () => {
     },
   });
 });
+
+

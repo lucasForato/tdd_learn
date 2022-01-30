@@ -151,9 +151,9 @@ export class UserController {
       const token = jwt.sign({ userId: user.id}, process.env.TOKEN_SECRET)
 
       return {
-        code: 400,
-        success: false,
-        message: "message",
+        code: 200,
+        success: true,
+        message: "You successfully signed in!",
         token: token,
       };
     } catch (err) {
