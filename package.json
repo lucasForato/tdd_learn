@@ -1,32 +1,42 @@
 {
   "name": "tdd_learn",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "server.js",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^17.0.12",
-    "apollo-server": "^3.6.2",
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/node": "^17.0.13",
+    "apollo-server-express": "^3.6.2",
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.2",
     "graphql": "^16.2.0",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.14.0"
   },
   "scripts": {
-    "dev": "tsc -w & nodemon dist/app.js",
-    "test": "jest"
+    "dev": "ts-node-dev --respawn --ignore-watch node_modules --no-notify src/server.ts",
+    "test": "jest --detectOpenHandles"
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
+    "@types/bcrypt-nodejs": "^0.0.31",
     "@types/graphql": "^14.5.0",
     "@types/jest": "^27.4.0",
     "@types/validator": "^13.7.1",
     "babel-jest": "^27.4.6",
+    "dotenv": "^14.3.2",
     "jest": "^27.4.7",
     "nodemon": "^2.0.15",
     "sequelize-cli": "^6.4.1",
     "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.5"
   }
 }

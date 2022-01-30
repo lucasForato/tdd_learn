@@ -1,43 +1,37 @@
 import { UserController } from "./../../controllers/UserControllers";
-
 const userController = new UserController();
 
 export default {
   Query: {
-    //TODO: return all users, not mock
     users: () => {
       return userController.getUsers();
     },
-    //TODO: return a real user, not a mock
-    user: (_: unknown, { id }: { id: number }, __: unknown, ___: unknown) => {
-      return userController.getUser(id);
+    user: (_: undefined, { email }: { email: string }) => {
+      return userController.getUser(email);
     },
   },
   Mutation: {
     addUser: async (
-      _: unknown,
+      _: undefined,
       {
         name,
         email,
         password,
-      }: { name: string; email: string; password: string },
-      __: unknown,
-      ___: unknown
+      }: { name: string; email: string; password: string }
     ) => {
       const newUser = await userController.addUser({ name, email, password });
 
       return newUser;
     },
 
-    deleteUser: async (
-      _: unknown,
-      { id }: { id: number },
-      __: unknown,
-      ___: unknown
-    ) => {
-      const deletedUser = await userController.deleteUser(id);
+    deleteUser: async (_: undefined, { email }: { email: string }) => {
+      const deletedUser = await userController.deleteUser(email);
 
       return deletedUser;
     },
+
+    loginUser: async (_: undefined, {email, password}: {email: string, password: string}) => {
+      return userController.loginUser(email, password)
+    }
   },
 };
